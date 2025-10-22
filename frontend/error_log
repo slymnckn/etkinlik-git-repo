@@ -1,4 +1,0 @@
-[12-Jun-2025 10:46:07 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\PublisherController::uploadLogo() in /home/etknlkapp/laravel_ariyayin/app/Http/Controllers/Api/PublisherController.php on line 234
-[12-Jun-2025 10:46:30 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\PublisherController::uploadLogo() in /home/etknlkapp/laravel_ariyayin/app/Http/Controllers/Api/PublisherController.php on line 234
-[12-Jun-2025 10:46:55 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\PublisherController::uploadLogo() in /home/etknlkapp/laravel_ariyayin/app/Http/Controllers/Api/PublisherController.php on line 234
-[12-Jun-2025 10:47:33 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\PublisherController::uploadLogo() in /home/etknlkapp/laravel_ariyayin/app/Http/Controllers/Api/PublisherController.php on line 234
