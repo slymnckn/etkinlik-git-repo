@@ -13,20 +13,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
+        // Idempotent seeding: update existing or create new users by unique email
+        User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        // Create editor user
-        User::create([
-            'name' => 'Editor User',
-            'email' => 'editor@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'editor',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'editor@example.com'],
+            [
+                'name' => 'Editor User',
+                'password' => Hash::make('password'),
+                'role' => 'editor',
+            ]
+        );
     }
 }
