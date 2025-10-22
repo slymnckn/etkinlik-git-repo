@@ -1,0 +1,94 @@
+{
+  "mappings": [
+    {
+      "categoryId": 1,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 2,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 3,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 4,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 5,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 6,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 7,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 8,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 9,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    },
+    {
+      "categoryId": 10,
+      "adIds": [
+        5,
+        4,
+        3,
+        1
+      ]
+    }
+  ]
+}

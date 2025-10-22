@@ -1,0 +1,17 @@
+{
+  "name": "jenkins-electron-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.2.1",
+    "electron-builder": "^24.13.3"
+  }
+}

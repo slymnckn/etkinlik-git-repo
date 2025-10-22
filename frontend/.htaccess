@@ -1,0 +1,100 @@
+<IfModule mod_headers.c>
+    Header always unset Accept-Ranges
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+
+    # /web-oyun/audio/ klasörüne gelen tüm istekleri dokunmadan bırak
+    RewriteCond %{REQUEST_URI} ^/web-oyun/audio/
+    RewriteRule ^ - [L]
+
+    
+    # storage dizinlerine dokunma
+    RewriteCond %{REQUEST_URI} ^/storage/
+    RewriteRule ^ - [L]
+
+    # Unity project klasörlerine dokunma
+    RewriteCond %{REQUEST_URI} ^/unity-project
+    RewriteRule ^ - [L]
+    
+    # API Laravel'e yönlendirilsin
+    RewriteCond %{REQUEST_URI} ^/api [NC]
+    RewriteRule ^ backend.php [L]
+
+    # Gerçek dosya veya klasör varsa, dokunma
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # mp3, mp4, ogg, wav dosyalarını fallback'ten hariç tut
+    RewriteCond %{REQUEST_URI} \.(mp3|mp4|ogg|wav)$ [NC]
+    RewriteRule ^ - [L]
+
+    # Diğer her şey index.html'e gitsin
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# .mp3 dosyaları için doğru MIME türü
+AddType audio/mpeg .mp3
+
+<IfModule mod_headers.c>
+    Header always unset Accept-Ranges
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+
+    # /web-oyun/audio/ klasörüne gelen tüm istekleri dokunmadan bırak
+    RewriteCond %{REQUEST_URI} ^/web-oyun/audio/
+    RewriteRule ^ - [L]
+
+    
+    # storage dizinlerine dokunma
+    RewriteCond %{REQUEST_URI} ^/storage/
+    RewriteRule ^ - [L]
+
+    # Unity project klasörlerine dokunma
+    RewriteCond %{REQUEST_URI} ^/unity-project
+    RewriteRule ^ - [L]
+    
+    # API Laravel'e yönlendirilsin
+    RewriteCond %{REQUEST_URI} ^/api [NC]
+    RewriteRule ^ backend.php [L]
+
+    # Gerçek dosya veya klasör varsa, dokunma
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # mp3, mp4, ogg, wav dosyalarını fallback'ten hariç tut
+    RewriteCond %{REQUEST_URI} \.(mp3|mp4|ogg|wav)$ [NC]
+    RewriteRule ^ - [L]
+
+    # Diğer her şey index.html'e gitsin
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# .mp3 dosyaları için doğru MIME türü
+AddType audio/mpeg .mp3
+
+
+<IfModule mime_module>
+    AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+AddType application/octet-stream .data
+
+
+<IfModule mime_module>
+    AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+AddType application/octet-stream .data
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

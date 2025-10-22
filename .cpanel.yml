@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/etkinlikapp/
+    - /bin/cp -R backend/* $DEPLOYPATH/laravel_artyayin/
+    - /bin/cp -R frontend/* $DEPLOYPATH/public_html/
+    - /bin/cp -R scripts/* $DEPLOYPATH/scripts/
+    - chmod -R 755 $DEPLOYPATH/public_html/
+    - chmod -R 755 $DEPLOYPATH/laravel_artyayin/

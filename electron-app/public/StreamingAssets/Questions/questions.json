@@ -1,0 +1,226 @@
+{
+  "questionType": 0,
+  "questions": [
+    {
+      "questionText": "resimsiz2",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "resimsiz1",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 15",
+      "hasImage": true,
+      "imagePath": "sJCiMOxBHZBEQ6OgOagaCztQUgchnhM7AoRSmZTE.png",
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 16",
+      "hasImage": true,
+      "imagePath": "EsjCIqiN7HGcF7hrCJCXHuhqH3JC64hnrW624ZW6.png",
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 8",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 10",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 12",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 13",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 14",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 2",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 6",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "Hangisi sayıdır",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "1",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 1",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 3",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 9",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "coktan secmeli 7",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 2,
+      "answersText": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "correctAnswerId": 0
+    },
+    {
+      "questionText": "xdfghjkjl",
+      "hasImage": false,
+      "imagePath": null,
+      "categoryId": 1,
+      "answersText": [
+        "fghjkl",
+        "n",
+        "m",
+        "m"
+      ],
+      "correctAnswerId": 0
+    }
+  ]
+}
