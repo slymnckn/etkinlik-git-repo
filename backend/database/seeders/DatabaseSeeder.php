@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,             // Önce kullanıcıları oluştur
             QuestionCategorySeeder::class, // Sonra kategorileri oluştur
             GameSeeder::class,             // Sonra oyunları oluştur
-            PublisherSeeder::class,        // Yayınevlerini ekle
         ]);
     }
 }

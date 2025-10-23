@@ -50,9 +50,10 @@ const ImageSearchPanel: React.FC<ImageSearchPanelProps> = ({
             
             setSearchResults(result.images || []);
             
-            // Toplam sayfa sayısını hesapla (her sayfada 10 sonuç)
+            // Toplam sayfa sayısını hesapla (her sayfada 48 sonuç - Freepik web sitesi gibi)
             const total = result.total || 0;
-            setTotalPages(Math.ceil(total / 10));
+            const perPage = 48; // Backend ile aynı değer
+            setTotalPages(Math.ceil(total / perPage));
 
         } catch (err) {
             console.error('Görsel arama hatası:', err);
@@ -157,7 +158,7 @@ const ImageSearchPanel: React.FC<ImageSearchPanelProps> = ({
                         💡 <strong>İpucu:</strong> Detaylı ve Türkçe anahtar kelimeler kullanın. 
                         <br />
                         <Typography component="span" variant="caption">
-                            Örn: "ankara harita" yerine → "ankara şehir haritası"
+                                Örn: "çocuk" yerine → "gülen kız çocuğu"
                         </Typography>
                     </Typography>
                 </Alert>
@@ -192,8 +193,8 @@ const ImageSearchPanel: React.FC<ImageSearchPanelProps> = ({
             {/* Sonuçlar Grid */}
             {searchResults.length > 0 && (
                 <Box>
-                    {/* Görsel Grid - Scroll ile */}
-                    <Box sx={{ maxHeight: 220, overflow: 'auto', mb: 1.5 }}>
+                    {/* Görsel Grid - Scroll ile - Daha fazla görsel için yükseklik artırıldı */}
+                    <Box sx={{ maxHeight: 400, overflow: 'auto', mb: 1.5 }}>
                         <Grid container spacing={1.5}>
                             {searchResults.map((image, index) => (
                                 <Grid item xs={6} sm={4} md={3} key={`${image.id}-${index}`}>

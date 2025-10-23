@@ -420,7 +420,8 @@ class QuestionController extends Controller
             'image' => 'required|image|max:2048', // 2MB max
         ]);
 
-        $path = $request->file('image')->store('questions');
+        $path = $request->file('image')->store('questions', 'public');
+        // Storage::url() zaten APP_URL ile tam URL döndürür
         $url = Storage::url($path);
 
         return response()->json(['url' => $url]);
@@ -462,7 +463,7 @@ class QuestionController extends Controller
         $fileName = 'question_' . Str::random(10) . '.png';
         
         // Dosyayı kaydet
-        Storage::put('questions/' . $fileName, $imageContent);
+        Storage::disk('public')->put('questions/' . $fileName, $imageContent);
         
         $url = Storage::url('questions/' . $fileName);
         
@@ -479,88 +480,112 @@ class QuestionController extends Controller
             'page' => 'nullable|integer|min:1',
         ]);
         
-        // Pixabay API anahtarı
-        $apiKey = env('PIXABAY_API_KEY');
+        // Freepik API anahtarı
+        $apiKey = env('FREEPIK_API_KEY');
         
         if (!$apiKey) {
             return response()->json([
-                'message' => 'Pixabay API anahtarı yapılandırılmamış'
+                'message' => 'Freepik API anahtarı yapılandırılmamış'
             ], 500);
         }
         
         $query = trim($request->input('query'));
         $page = $request->input('page', 1);
-        
+
         // Boş sorgu kontrolü
         if (empty($query)) {
             return response()->json([
                 'message' => 'Arama sorgusu boş olamaz'
             ], 400);
         }
-        
-        // Pixabay API'de sayfalama
-        $perPage = 10; // Pixabay API'de bir sayfada gösterilecek sonuç sayısı
+
+        // NOT: Görsel arama için yapılan iyileştirmeler kaldırıldı.
+        // Kullanıcının girdiği arama terimi doğrudan Freepik API'ye iletilecek.
+
+        // Freepik API'de sayfalama - Web sitesindeki gibi daha fazla sonuç
+        $perPage = 48; // Freepik web sitesi gibi sayfa başına daha fazla sonuç
         
         try {
             // Arama parametrelerini loglayalım
-            Log::info('Pixabay Image Search Request', [
+            Log::info('Freepik Image Search Request', [
                 'query' => $query,
                 'page' => $page,
+                'per_page' => $perPage,
             ]);
             
-            // Pixabay API çağrısı
-            $response = Http::get('https://pixabay.com/api/', [
-                'key' => $apiKey,
-                'q' => $query,
-                'image_type' => 'photo',  // Sadece fotoğraflar
+            // Freepik API çağrısı - Web sitesindeki gibi geniş sonuçlar için sadece temel parametreler
+            $response = Http::withOptions([
+                'verify' => false,  // SSL doğrulamasını kapat (production'da KULLANMA!)
+            ])->withHeaders([
+                'x-freepik-api-key' => $apiKey,
+                'Accept-Language' => 'tr-TR',
+            ])->get('https://api.freepik.com/v1/resources', [
+                'term' => $query,
                 'page' => $page,
-                'per_page' => $perPage,   // Her sayfada 10 sonuç
-                'safesearch' => true,     // Güvenli arama
-                'lang' => 'tr',           // Dil (mümkün olduğunda Türkçe)
+                'limit' => $perPage,
+                'order' => 'relevance', // Alakalılığa göre sırala (Freepik web sitesi gibi)
+                'locale' => 'tr-TR' // Türkçe dil desteği
             ]);
             
             if ($response->failed()) {
-                Log::error('Pixabay API error', [
+                Log::error('Freepik API error', [
                     'status' => $response->status(),
                     'body' => $response->body()
                 ]);
                 
                 return response()->json([
-                    'message' => 'Pixabay\'den görsel arama sırasında hata oluştu'
+                    'message' => 'Freepik\'ten görsel arama sırasında hata oluştu'
                 ], 500);
             }
             
             $data = $response->json();
             
             // Sonuçları loglayalım
-            Log::info('Pixabay Image Search Response', [
-                'total' => $data['total'] ?? 0,
-                'total_hits' => $data['totalHits'] ?? 0,
-                'hit_count' => isset($data['hits']) ? count($data['hits']) : 0
+            Log::info('Freepik Image Search Response', [
+                'total' => $data['meta']['total'] ?? 0,
+                'current_page' => $data['meta']['current_page'] ?? 0,
+                'result_count' => isset($data['data']) ? count($data['data']) : 0
             ]);
             
             // API sonuçları kontrol
-            if (!isset($data['hits']) || empty($data['hits'])) {
+            if (!isset($data['data']) || empty($data['data'])) {
                 return response()->json([
                     'total' => 0,
                     'images' => [],
                 ]);
             }
             
-            // Pixabay API'den gelen görselleri formatlama
-            $images = collect($data['hits'])->map(function ($item) {
+            // Freepik API'den gelen görselleri formatlama
+            $images = collect($data['data'])->map(function ($item) {
+                // Görsel URL'sini bul (preview veya source)
+                $previewUrl = $item['image']['source']['url'] ?? null;
+                $largeUrl = $item['image']['source']['url'] ?? null;
+                
+                // Eğer thumbnail varsa onu kullan
+                if (isset($item['thumbnails']) && !empty($item['thumbnails'])) {
+                    foreach ($item['thumbnails'] as $thumb) {
+                        if ($thumb['width'] <= 300) {
+                            $previewUrl = $thumb['url'];
+                            break;
+                        }
+                    }
+                }
+                
                 return [
                     'id' => $item['id'],
-                    'preview_url' => $item['previewURL'], // Küçük önizleme
-                    'web_format_url' => $item['webformatURL'], // Orta boy
-                    'large_image_url' => $item['largeImageURL'], // Büyük boy
-                    'source' => 'Pixabay',
-                    'title' => $item['tags'] ?? '',
+                    'preview_url' => $previewUrl,
+                    'web_format_url' => $largeUrl,
+                    'large_image_url' => $largeUrl,
+                    'source' => 'Freepik',
+                    'title' => $item['title'] ?? '',
                 ];
-            });
+            })->filter(function ($item) {
+                // En az bir URL mevcut olmalı (preview veya web)
+                return !empty($item['preview_url']) || !empty($item['web_format_url']);
+            })->values();
             
             return response()->json([
-                'total' => $data['totalHits'] ?? count($images),
+                'total' => $data['meta']['total'] ?? count($images),
                 'images' => $images,
             ]);
             
@@ -588,8 +613,10 @@ class QuestionController extends Controller
         $imageUrl = $request->input('image_url');
         
         try {
-            // URL'den görseli indir
-            $response = Http::timeout(10)->get($imageUrl);
+            // URL'den görseli indir (SSL doğrulamasız - development için)
+            $response = Http::withOptions([
+                'verify' => false,
+            ])->timeout(10)->get($imageUrl);
             
             if ($response->failed()) {
                 return response()->json([
@@ -630,11 +657,15 @@ class QuestionController extends Controller
             $fileName = 'external_' . Str::random(10) . '.' . $extension;
             
             // Dosyayı kaydet
-            Storage::put('questions/' . $fileName, $imageContent);
+            Storage::disk('public')->put('questions/' . $fileName, $imageContent);
             
+            // Tam URL döndür
             $url = Storage::url('questions/' . $fileName);
             
-            return response()->json(['url' => $url]);
+            return response()->json([
+                'url' => $url
+            ])->header('Content-Type', 'application/json')
+              ->header('Access-Control-Allow-Origin', '*');
             
         } catch (\Exception $e) {
             Log::error('Error in saveExternalImage', [

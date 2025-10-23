@@ -25,13 +25,13 @@ use Illuminate\Http\Request;
 |--------------------------------------------------------------------------
 */
 
-// CORS Headers - Tüm API istekleri için (CLI ortamında hata vermesin diye korumalı)
-if (PHP_SAPI !== 'cli') {
+// CORS Headers - Sadece web server context'inde çalışır
+if (php_sapi_name() !== 'cli') {
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-CSRF-TOKEN');
     header('Access-Control-Allow-Credentials: true');
-
+    
     // OPTIONS isteklerini handle et
     if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
